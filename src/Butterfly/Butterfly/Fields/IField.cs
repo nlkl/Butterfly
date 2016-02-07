@@ -1,5 +1,4 @@
 ﻿using Butterfly.Rendering;
-using Optional;
 using Sitecore.Data.Fields;
 using System;
 using System.Collections.Generic;

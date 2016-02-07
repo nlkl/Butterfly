@@ -1,5 +1,4 @@
 ﻿using Butterfly.Fields;
-using Butterfly.Utils;
 using Optional;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
@@ -25,7 +24,7 @@ namespace Butterfly.Rendering
 
         public TypedFieldRenderer(IField field)
         {
-            Contracts.ArgNotNull(field, nameof(field));
+            if (field == null) throw new ArgumentNullException(nameof(field));
 
             this.item = field.InnerField.Item;
             this.fieldName = field.InnerField.Name;

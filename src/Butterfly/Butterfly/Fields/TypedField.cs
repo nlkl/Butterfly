@@ -1,5 +1,4 @@
 ﻿using Butterfly.Rendering;
-using Butterfly.Utils;
 using Optional;
 using Optional.Unsafe;
 using Sitecore.Data;
@@ -29,8 +28,8 @@ namespace Butterfly.Fields
 
         public TypedField(Item item, string fieldName)
         {
-            Contracts.ArgNotNull(item, nameof(item));
-            Contracts.ArgNotNull(fieldName, nameof(fieldName));
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            if (fieldName == null) throw new ArgumentNullException(nameof(fieldName));
 
             this.fieldName = fieldName;
             this.ownerItemId = item.ID;

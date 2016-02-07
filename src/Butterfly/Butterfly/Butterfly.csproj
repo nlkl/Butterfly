@@ -55,7 +55,6 @@
     <Compile Include="Rendering\RenderFieldArgsExtensions.cs" />
     <Compile Include="Rendering\TypedFieldRenderer.cs" />
     <Compile Include="Rendering\TypedFieldRenderingResult.cs" />
-    <Compile Include="Utils\Contracts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

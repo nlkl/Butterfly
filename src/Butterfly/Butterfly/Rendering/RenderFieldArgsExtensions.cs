@@ -1,5 +1,4 @@
-﻿using Butterfly.Utils;
-using Sitecore.Collections;
+﻿using Sitecore.Collections;
 using Sitecore.Pipelines.RenderField;
 using System;
 using System.Collections.Generic;
@@ -14,8 +13,8 @@ namespace Butterfly.Rendering
     {
         public static void ApplyParameters(this RenderFieldArgs args, object parameters)
         {
-            Contracts.ArgNotNull(args, nameof(args));
-            Contracts.ArgNotNull(parameters, nameof(parameters));
+            if (args == null) throw new ArgumentNullException(nameof(args));
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             CopyProperties(parameters, args);
             CopyProperties(parameters, args.Parameters);
