@@ -1,4 +1,5 @@
-﻿using Optional;
+﻿using Butterfly.Rendering;
+using Optional;
 using Sitecore.Data.Fields;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace Butterfly.Fields
     {
         Field InnerField { get; }
         string RawValue { get; set; }
+        TypedFieldRenderer Renderer { get; }
     }
 }

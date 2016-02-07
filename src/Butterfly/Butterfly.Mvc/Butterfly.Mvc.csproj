@@ -55,8 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MvcFieldRenderer.cs" />
-    <Compile Include="MvcRenderFieldArgsExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MvcFieldRenderingExtensions.cs" />
   </ItemGroup>

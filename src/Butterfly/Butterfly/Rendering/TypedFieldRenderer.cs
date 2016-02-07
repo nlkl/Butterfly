@@ -1,4 +1,6 @@
 ﻿using Butterfly.Fields;
+using Butterfly.Utils;
+using Optional;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using Sitecore.Pipelines;
@@ -9,9 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
 
-namespace Butterfly.Mvc
+namespace Butterfly.Rendering
 {
     public class TypedFieldRenderer
     {
@@ -20,9 +21,11 @@ namespace Butterfly.Mvc
         private readonly Item item;
         private readonly string fieldName;
 
+        public Option<TypedFieldRenderingResult> RenderingResult { get; private set; } = Option.None<TypedFieldRenderingResult>();
+
         public TypedFieldRenderer(ITypedField field)
         {
-            if (field == null) throw new ArgumentNullException(nameof(field));
+            Contracts.ArgNotNull(field, nameof(field));
 
             this.item = field.InnerField.Item;
             this.fieldName = field.InnerField.Name;
@@ -47,7 +50,10 @@ namespace Butterfly.Mvc
             var firstPart = result?.FirstPart;
             var lastPart = result?.LastPart;
 
-            return new TypedFieldRenderingResult(firstPart, lastPart);
+            var renderingResult = new TypedFieldRenderingResult(firstPart, lastPart);
+            RenderingResult = renderingResult.Some();
+
+            return renderingResult;
         }
     }
 }

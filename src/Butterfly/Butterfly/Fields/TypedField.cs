@@ -1,4 +1,5 @@
-﻿using Butterfly.Utils;
+﻿using Butterfly.Rendering;
+using Butterfly.Utils;
 using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
@@ -11,7 +12,7 @@ using System.Web;
 
 namespace Butterfly.Fields
 {
-    public abstract class TypedField : ITypedField
+    public class TypedField : ITypedField
     {
         private readonly Lazy<Field> innerField;
 
@@ -20,6 +21,7 @@ namespace Butterfly.Fields
 
         protected Item OwnerItem => InnerField.Item;
 
+        public TypedFieldRenderer Renderer { get; private set; }
         public Field InnerField => Contracts.EnsureNotNull(innerField.Value, $"Field '{fieldName}' not found in item with ID '{ownerItemId}'.");
 
         public TypedField(Item item, string fieldName)
@@ -30,6 +32,8 @@ namespace Butterfly.Fields
             this.fieldName = fieldName;
             this.ownerItemId = item.ID;
             this.innerField = new Lazy<Field>(() => item.Fields[fieldName]);
+
+            Renderer = new TypedFieldRenderer(this);
         }
 
         public string RawValue

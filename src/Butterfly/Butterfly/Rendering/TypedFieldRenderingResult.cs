@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Butterfly.Mvc
+namespace Butterfly.Rendering
 {
     public class TypedFieldRenderingResult
     {
@@ -13,7 +13,7 @@ namespace Butterfly.Mvc
 
         public override string ToString() => FirstPart + LastPart;
 
-        public TypedFieldRenderingResult(string firstPart, string lastPart)
+        internal TypedFieldRenderingResult(string firstPart, string lastPart)
         {
             FirstPart = firstPart ?? string.Empty;
             LastPart = lastPart ?? string.Empty;
