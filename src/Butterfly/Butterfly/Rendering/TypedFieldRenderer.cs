@@ -14,16 +14,16 @@ using System.Web;
 
 namespace Butterfly.Rendering
 {
-    public class TypedFieldRenderer
+    public class TypedFieldRenderer : IFieldRenderer
     {
         private const string renderFieldPipeline = "renderField";
 
         private readonly Item item;
         private readonly string fieldName;
 
-        public Option<TypedFieldRenderingResult> RenderingResult { get; private set; } = Option.None<TypedFieldRenderingResult>();
+        public Option<IFieldRenderingResult> RenderingResult { get; private set; } = Option.None<IFieldRenderingResult>();
 
-        public TypedFieldRenderer(ITypedField field)
+        public TypedFieldRenderer(IField field)
         {
             Contracts.ArgNotNull(field, nameof(field));
 
@@ -31,7 +31,7 @@ namespace Butterfly.Rendering
             this.fieldName = field.InnerField.Name;
         }
 
-        public TypedFieldRenderingResult Render(object parameters = null)
+        public IFieldRenderingResult Render(object parameters = null)
         {
             var renderFieldArgs = new RenderFieldArgs()
             {
@@ -51,7 +51,7 @@ namespace Butterfly.Rendering
             var lastPart = result?.LastPart;
 
             var renderingResult = new TypedFieldRenderingResult(firstPart, lastPart);
-            RenderingResult = renderingResult.Some();
+            RenderingResult = renderingResult.Some<IFieldRenderingResult>();
 
             return renderingResult;
         }

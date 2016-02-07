@@ -13,27 +13,27 @@ namespace Butterfly.Mvc
     {
         private const string renderFieldPipeline = "renderField";
 
-        public static IHtmlString Render(this ITypedField field, object parameters = null)
+        public static IHtmlString Render(this IField field, object parameters = null)
         {
             if (field == null) throw new ArgumentNullException(nameof(field));
             var renderingResult = field.Renderer.Render(parameters);
-            return new HtmlString(renderingResult.ToString());
+            return new HtmlString(renderingResult.Result);
         }
 
-        public static IHtmlString RenderFirstPart(this ITypedField field, object parameters = null)
+        public static IHtmlString RenderBegin(this IField field, object parameters = null)
         {
             if (field == null) throw new ArgumentNullException(nameof(field));
             var renderingResult = field.Renderer.Render(parameters);
-            return new HtmlString(renderingResult.FirstPart);
+            return new HtmlString(renderingResult.BeginResult);
         }
 
-        public static IHtmlString RenderLastPart(this ITypedField field)
+        public static IHtmlString RenderEnd(this IField field)
         {
             if (field == null) throw new ArgumentNullException(nameof(field));
             var renderingResult = field.Renderer
                 .RenderingResult
                 .ValueOrFailure("Cannot render the last part of a field, before rendering the first part.");
-            return new HtmlString(renderingResult.LastPart);
+            return new HtmlString(renderingResult.EndResult);
         }
     }
 }

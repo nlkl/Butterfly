@@ -10,10 +10,13 @@ using System.Web;
 
 namespace Butterfly.Fields
 {
-    public interface ITypedField
+    public interface IField
     {
         Field InnerField { get; }
+
         string RawValue { get; set; }
-        TypedFieldRenderer Renderer { get; }
+        bool HasValue { get; }
+
+        IFieldRenderer Renderer { get; }
     }
 }

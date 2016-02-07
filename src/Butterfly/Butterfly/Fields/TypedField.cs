@@ -1,5 +1,7 @@
 ﻿using Butterfly.Rendering;
 using Butterfly.Utils;
+using Optional;
+using Optional.Unsafe;
 using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
@@ -12,17 +14,18 @@ using System.Web;
 
 namespace Butterfly.Fields
 {
-    public class TypedField : ITypedField
+    public class TypedField : IField
     {
-        private readonly Lazy<Field> innerField;
+        private readonly Lazy<Option<Field>> innerField;
+        private readonly IFieldRenderer renderer;
 
         protected readonly ID ownerItemId;
         protected readonly string fieldName;
 
         protected Item OwnerItem => InnerField.Item;
 
-        public TypedFieldRenderer Renderer { get; private set; }
-        public Field InnerField => Contracts.EnsureNotNull(innerField.Value, $"Field '{fieldName}' not found in item with ID '{ownerItemId}'.");
+        public Field InnerField => innerField.Value.ValueOrFailure($"Field '{fieldName}' not found in item with ID '{ownerItemId}'.");
+        public IFieldRenderer Renderer => renderer;
 
         public TypedField(Item item, string fieldName)
         {
@@ -31,17 +34,13 @@ namespace Butterfly.Fields
 
             this.fieldName = fieldName;
             this.ownerItemId = item.ID;
-            this.innerField = new Lazy<Field>(() => item.Fields[fieldName]);
-
-            Renderer = new TypedFieldRenderer(this);
+            this.innerField = new Lazy<Option<Field>>(() => item.Fields[fieldName].SomeNotNull());
+            this.renderer = InitializeFieldRenderer();
         }
 
         public string RawValue
         {
-            get
-            {
-                return InnerField.Value ?? string.Empty;
-            }
+            get { return InnerField.Value ?? string.Empty; }
 
             set
             {
@@ -55,6 +54,13 @@ namespace Butterfly.Fields
         public void Load()
         {
             var value = innerField.Value;
+        }
+
+        public virtual bool HasValue => !string.IsNullOrEmpty(RawValue);
+
+        protected virtual IFieldRenderer InitializeFieldRenderer()
+        {
+            return new TypedFieldRenderer(this);
         }
     }
 }

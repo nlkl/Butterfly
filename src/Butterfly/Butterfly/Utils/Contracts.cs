@@ -15,22 +15,5 @@ namespace Butterfly.Utils
                 throw new ArgumentNullException(paramName);
             }
         }
-
-        public static T EnsureNotNull<T>(T value, string errorMessage)
-        {
-            if (value == null)
-            {
-                throw new ButterflyContractException(errorMessage);
-            }
-
-            return value;
-        }
-    }
-
-    public class ButterflyContractException : Exception
-    {
-        public ButterflyContractException(string message) : base(message)
-        {
-        }
     }
 }

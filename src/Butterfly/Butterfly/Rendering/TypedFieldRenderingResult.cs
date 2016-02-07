@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace Butterfly.Rendering
 {
-    public class TypedFieldRenderingResult
+    public class TypedFieldRenderingResult : IFieldRenderingResult
     {
-        public string FirstPart { get; private set; }
-        public string LastPart { get; private set; }
+        public string Result => BeginResult + EndResult;
+        public string BeginResult { get; private set; }
+        public string EndResult { get; private set; }
 
-        public override string ToString() => FirstPart + LastPart;
-
-        internal TypedFieldRenderingResult(string firstPart, string lastPart)
+        public TypedFieldRenderingResult(string firstPart, string lastPart)
         {
-            FirstPart = firstPart ?? string.Empty;
-            LastPart = lastPart ?? string.Empty;
+            BeginResult = firstPart ?? string.Empty;
+            EndResult = lastPart ?? string.Empty;
         }
     }
 }
