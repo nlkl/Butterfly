@@ -1,4 +1,5 @@
 ﻿using Butterfly.Fields;
+using Sitecore.Mvc.Common;
 using Sitecore.Pipelines;
 using Sitecore.Pipelines.RenderField;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Butterfly.Mvc
 {
@@ -14,17 +16,27 @@ namespace Butterfly.Mvc
     {
         private const string renderFieldPipeline = "renderField";
 
-        private static IHtmlString Render(this ITypedField field, object parameters = null)
+        public static IHtmlString Render(this ITypedField field, object parameters = null)
         {
             if (field == null) throw new ArgumentNullException(nameof(field));
-            var parts = MvcFieldRenderer.RenderParts(field, parameters);
-            return new HtmlString(parts.FirstPart + parts.LastPart);
+            var renderingResult = field.GetRenderer().Render(parameters);
+            return new HtmlString(renderingResult.ToString());
         }
 
-        private static IDisposable BeginRender(this ITypedField field, object parameters = null)
+        public static IDisposable BeginRender(this ITypedField field, object parameters = null)
         {
             if (field == null) throw new ArgumentNullException(nameof(field));
-            return new MvcFieldRenderer(field, parameters);
+
+            var viewContext = ContextService.Get().GetCurrent<ViewContext>();
+            if (viewContext == null)
+            {
+                return null;
+            }
+
+            var renderingResult = field.GetRenderer().Render(parameters);
+            return new MvcWrappedContent(viewContext, renderingResult.FirstPart, renderingResult.LastPart);
         }
+
+        public static TypedFieldRenderer GetRenderer(this ITypedField field) => new TypedFieldRenderer(field);
     }
 }
