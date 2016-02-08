@@ -4,7 +4,7 @@ Beautifully typed items for Sitecore
 
 ## Overview
 
-**Note: Butterfly is a work in progress, and still in early stages of development**
+**Note: Butterfly is a work in progress, and still in the early stages of development**
 
 Butterfly is a simpler and safer object model for Sitecore items. 
 
