@@ -33,15 +33,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\..\..\lib\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Optional, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Optional.3.0.0\lib\net46\Optional.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Analytics">
+      <HintPath>..\..\..\lib\Sitecore.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.FakeDb, Version=0.38.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.FakeDb.0.38.0\lib\net45\Sitecore.FakeDb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\..\..\lib\Sitecore.Kernel.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.Logging">
+      <HintPath>..\..\..\lib\Sitecore.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Mvc">
       <HintPath>..\..\..\lib\Sitecore.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="sitecore.nexus">
+      <HintPath>..\..\..\lib\sitecore.nexus.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,11 +70,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="App_Config\FieldTypes.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
