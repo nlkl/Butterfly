@@ -46,10 +46,10 @@ namespace Butterfly.Rendering
             CorePipeline.Run(renderFieldPipeline, renderFieldArgs);
             var result = renderFieldArgs.Result;
 
-            var firstPart = result?.FirstPart;
-            var lastPart = result?.LastPart;
+            var beginResult = result?.FirstPart;
+            var endResult = result?.LastPart;
 
-            var renderingResult = new TypedFieldRenderingResult(firstPart, lastPart);
+            var renderingResult = new TypedFieldRenderingResult(beginResult, endResult);
             RenderingResult = renderingResult.Some<IFieldRenderingResult>();
 
             return renderingResult;
