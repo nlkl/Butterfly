@@ -1,4 +1,5 @@
 ﻿using Butterfly.Rendering;
+using Sitecore.Data;
 using Sitecore.Data.Fields;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Butterfly.Fields
     public interface IField
     {
         Field InnerField { get; }
+        ID Id { get; }
 
         string RawValue { get; set; }
         bool HasValue { get; }

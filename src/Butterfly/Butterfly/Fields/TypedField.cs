@@ -17,13 +17,13 @@ namespace Butterfly.Fields
     {
         private readonly Lazy<Option<Field>> innerField;
         private readonly IFieldRenderer renderer;
-
-        protected readonly ID ownerItemId;
-        protected readonly string fieldName;
+        private readonly ID ownerItemId;
+        private readonly string fieldName;
 
         protected Item OwnerItem => InnerField.Item;
 
         public Field InnerField => innerField.Value.ValueOrFailure($"Field '{fieldName}' not found in item with ID '{ownerItemId}'.");
+        public ID Id => InnerField.ID;
         public IFieldRenderer Renderer => renderer;
 
         public TypedField(Item item, string fieldName)
