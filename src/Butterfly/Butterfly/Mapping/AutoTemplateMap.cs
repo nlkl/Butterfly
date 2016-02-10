@@ -43,6 +43,7 @@ namespace Butterfly.Mapping
         private Func<Item, IItem> CreateItemFactory(Type type)
         {
             var ctor = type.GetConstructor(new[] { typeof(Item) });
+            if (ctor == null) throw new InvalidOperationException($"Automapped Butterfly models, must have a constructor taking a single item as input.");
             var param = Expression.Parameter(typeof(Item), "item");
             var lambda = Expression.Lambda<Func<Item, IItem>>(Expression.New(ctor, param), param);
 
