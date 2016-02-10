@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Butterfly.Mvc
+namespace Butterfly.Web
 {
-    public static class MvcFieldRenderingExtensions
+    public static class FieldRenderingExtensions
     {
         private const string renderFieldPipeline = "renderField";
 
