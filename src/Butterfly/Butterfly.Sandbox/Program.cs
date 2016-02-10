@@ -1,4 +1,5 @@
 ﻿using Butterfly.Mapping;
+using Optional.Unsafe;
 using Sitecore.FakeDb;
 using System;
 using System.Collections.Generic;
@@ -48,8 +49,12 @@ namespace Butterfly.Sandbox
                 db.Add(articlePage1Item);
 
 
-                var page1 = TemplateMapper.Map(db.GetItem(page1Item.ID));
-                var article1 = TemplateMapper.Map(db.GetItem(articlePage1Item.ID));
+                var page1 = TemplateMapper.MapAs<IPageItem>(db.GetItem(page1Item.ID)).ValueOrFailure();
+                Console.WriteLine(page1.Title.RawValue);
+
+                var article1 = TemplateMapper.MapAs<IArticlePageItem>(db.GetItem(articlePage1Item.ID)).ValueOrFailure();
+                Console.WriteLine(article1.Title.RawValue);
+                Console.WriteLine(article1.Content.RawValue);
             }
         }
     }
