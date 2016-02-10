@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Butterfly.Mvc")]
+[assembly: AssemblyTitle("Butterfly.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Butterfly.Mvc")]
+[assembly: AssemblyProduct("Butterfly.Web")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5cad90a4-414d-4411-af62-7317f5a50a18")]
+[assembly: Guid("0a067d5f-0c87-46fd-b507-2a3a4520c6ba")]
 
 // Version information for an assembly consists of the following four values:
 //

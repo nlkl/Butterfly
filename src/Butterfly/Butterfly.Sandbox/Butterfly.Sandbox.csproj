@@ -80,9 +80,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Butterfly.Mvc\Butterfly.Mvc.csproj">
-      <Project>{5cad90a4-414d-4411-af62-7317f5a50a18}</Project>
-      <Name>Butterfly.Mvc</Name>
+    <ProjectReference Include="..\Butterfly.Web\Butterfly.Web.csproj">
+      <Project>{0a067d5f-0c87-46fd-b507-2a3a4520c6ba}</Project>
+      <Name>Butterfly.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\Butterfly\Butterfly.csproj">
       <Project>{80443212-71ae-42fb-8b24-a0ab2b5e78fb}</Project>
