@@ -60,8 +60,8 @@
     <Compile Include="Rendering\IFieldRenderingResult.cs" />
     <Compile Include="Rendering\IFieldRenderer.cs" />
     <Compile Include="Rendering\RenderFieldArgsExtensions.cs" />
-    <Compile Include="Rendering\TypedFieldRenderer.cs" />
-    <Compile Include="Rendering\TypedFieldRenderingResult.cs" />
+    <Compile Include="Rendering\FieldRenderer.cs" />
+    <Compile Include="Rendering\FieldRenderingResult.cs" />
     <Compile Include="TypedItem.cs" />
   </ItemGroup>
   <ItemGroup>

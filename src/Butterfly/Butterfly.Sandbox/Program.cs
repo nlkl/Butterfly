@@ -56,6 +56,8 @@ namespace Butterfly.Sandbox
                 Console.WriteLine(article1.Title.RawValue);
                 Console.WriteLine(article1.Content.RawValue);
             }
+
+            Console.ReadKey();
         }
     }
 }

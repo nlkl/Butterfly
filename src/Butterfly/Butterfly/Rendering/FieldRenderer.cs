@@ -13,7 +13,7 @@ using System.Web;
 
 namespace Butterfly.Rendering
 {
-    public class TypedFieldRenderer : IFieldRenderer
+    public class FieldRenderer : IFieldRenderer
     {
         private const string renderFieldPipeline = "renderField";
 
@@ -22,12 +22,13 @@ namespace Butterfly.Rendering
 
         public Option<IFieldRenderingResult> RenderingResult { get; private set; } = Option.None<IFieldRenderingResult>();
 
-        public TypedFieldRenderer(IField field)
+        public FieldRenderer(Item item, string fieldName)
         {
-            if (field == null) throw new ArgumentNullException(nameof(field));
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            if (fieldName == null) throw new ArgumentNullException(nameof(fieldName));
 
-            this.item = field.InnerField.Item;
-            this.fieldName = field.InnerField.Name;
+            this.item = item;
+            this.fieldName = fieldName;
         }
 
         public IFieldRenderingResult Render(object parameters = null)
@@ -49,7 +50,7 @@ namespace Butterfly.Rendering
             var beginResult = result?.FirstPart;
             var endResult = result?.LastPart;
 
-            var renderingResult = new TypedFieldRenderingResult(beginResult, endResult);
+            var renderingResult = new FieldRenderingResult(beginResult, endResult);
             RenderingResult = renderingResult.Some<IFieldRenderingResult>();
 
             return renderingResult;

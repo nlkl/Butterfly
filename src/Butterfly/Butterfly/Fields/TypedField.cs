@@ -17,12 +17,12 @@ namespace Butterfly.Fields
     {
         private readonly Lazy<Option<Field>> innerField;
         private readonly IFieldRenderer renderer;
-        private readonly ID ownerItemId;
+        private readonly Item ownerItem;
         private readonly string fieldName;
 
-        protected Item OwnerItem => InnerField.Item;
+        protected Item OwnerItem => ownerItem;
 
-        public Field InnerField => innerField.Value.ValueOrFailure($"Field '{fieldName}' not found in item with ID '{ownerItemId}'.");
+        public Field InnerField => innerField.Value.ValueOrFailure($"Field '{fieldName}' not found in item with ID '{ownerItem.ID}'.");
         public ID Id => InnerField.ID;
         public IFieldRenderer Renderer => renderer;
 
@@ -32,9 +32,9 @@ namespace Butterfly.Fields
             if (fieldName == null) throw new ArgumentNullException(nameof(fieldName));
 
             this.fieldName = fieldName;
-            this.ownerItemId = item.ID;
+            this.ownerItem = item;
             this.innerField = new Lazy<Option<Field>>(() => item.Fields[fieldName].SomeNotNull());
-            this.renderer = InitializeFieldRenderer();
+            this.renderer = InitializeFieldRenderer(item, fieldName);
         }
 
         public string RawValue
@@ -57,9 +57,6 @@ namespace Butterfly.Fields
 
         public virtual bool HasValue => !string.IsNullOrEmpty(RawValue);
 
-        protected virtual IFieldRenderer InitializeFieldRenderer()
-        {
-            return new TypedFieldRenderer(this);
-        }
+        protected virtual IFieldRenderer InitializeFieldRenderer(Item item, string fieldName) => new FieldRenderer(item, fieldName);
     }
 }
