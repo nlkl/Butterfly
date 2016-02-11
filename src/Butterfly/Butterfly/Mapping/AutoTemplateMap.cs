@@ -16,7 +16,7 @@ namespace Butterfly.Mapping
         {
             if (assembliesToScan == null) throw new ArgumentNullException(nameof(assembliesToScan));
 
-            mappings = assembliesToScan
+            Mappings = assembliesToScan
                 .Where(a => a != null)
                 .Select(ScanAssemblyForMappings)
                 .Aggregate(Enumerable.Empty<KeyValuePair<Guid, Func<Item, IItem>>>(), (ms, m) => ms.Union(m))
@@ -38,16 +38,6 @@ namespace Butterfly.Mapping
 
                 yield return new KeyValuePair<Guid, Func<Item, IItem>>(templateId, itemFactory);
             }
-        }
-
-        private Func<Item, IItem> CreateItemFactory(Type type)
-        {
-            var ctor = type.GetConstructor(new[] { typeof(Item) });
-            if (ctor == null) throw new InvalidOperationException($"Automapped Butterfly models must have a constructor taking a single item as input.");
-            var param = Expression.Parameter(typeof(Item), "item");
-            var lambda = Expression.Lambda<Func<Item, IItem>>(Expression.New(ctor, param), param);
-
-            return lambda.Compile();
         }
     }
 }
