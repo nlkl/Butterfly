@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FieldRenderingExtensions.cs" />
+    <Compile Include="Fields\IRenderableField.cs" />
+    <Compile Include="Fields\RenderableField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
