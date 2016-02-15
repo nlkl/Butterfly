@@ -38,7 +38,7 @@ namespace Butterfly
             }
         }
 
-        public IAxes Axes => axes;
+        public virtual IAxes Axes => axes;
 
         public string Name => InnerItem.Name;
         public string DisplayName => InnerItem.DisplayName;
@@ -54,14 +54,12 @@ namespace Butterfly
             this.axes = new Axes(item, templateMapping);
         }
 
-        public virtual string GenerateUrl()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual string GenerateUrl() => LinkManager.GetItemUrl(InnerItem);
 
         public virtual string GenerateUrl(UrlOptions options)
         {
-            throw new NotImplementedException();
+            if (options == null) throw new ArgumentNullException(nameof(options));
+            return LinkManager.GetItemUrl(InnerItem, options);
         }
     }
 }
