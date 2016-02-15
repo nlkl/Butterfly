@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Butterfly.Sandbox", "Butter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Butterfly.Web", "Butterfly.Web\Butterfly.Web.csproj", "{0A067D5F-0C87-46FD-B507-2A3A4520C6BA}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Butterfly.Tests", "Butterfly.Tests\Butterfly.Tests.fsproj", "{BB6ADA03-0EA4-4021-8F16-6F09C1A5C07A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0A067D5F-0C87-46FD-B507-2A3A4520C6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A067D5F-0C87-46FD-B507-2A3A4520C6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A067D5F-0C87-46FD-B507-2A3A4520C6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB6ADA03-0EA4-4021-8F16-6F09C1A5C07A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6ADA03-0EA4-4021-8F16-6F09C1A5C07A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6ADA03-0EA4-4021-8F16-6F09C1A5C07A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6ADA03-0EA4-4021-8F16-6F09C1A5C07A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
