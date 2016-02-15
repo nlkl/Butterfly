@@ -8,19 +8,19 @@ using Sitecore.Data;
 
 namespace Butterfly.Mapping
 {
-    public class ManualTemplateMap : TemplateMap
+    public class ManualTemplateMapping : TemplateMapping
     {
-        public void Register(TemplateID templateId, Func<Item, IItem> itemFactory)
+        public void Register(TemplateID templateId, Func<Item, ITemplateMapping, IItem> itemFactory)
         {
             Register(templateId.ID.Guid, itemFactory);
         }
 
-        public void Register(ID templateId, Func<Item, IItem> itemFactory)
+        public void Register(ID templateId, Func<Item, ITemplateMapping, IItem> itemFactory)
         {
             Register(templateId.Guid, itemFactory);
         }
 
-        public void Register(Guid templateId, Func<Item, IItem> itemFactory)
+        public void Register(Guid templateId, Func<Item, ITemplateMapping, IItem> itemFactory)
         {
             if (itemFactory == null) throw new ArgumentNullException(nameof(itemFactory));
             Mappings.Add(templateId, itemFactory);

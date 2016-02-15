@@ -15,8 +15,7 @@ namespace Butterfly.Sandbox
         static void Main(string[] args)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var templateMap = new AutoTemplateMap(assembly);
-            TemplateMapper.Configure(templateMap);
+            var templateMapping = new AutoTemplateMapping(assembly);
 
             using (var db = new Db())
             {
@@ -49,16 +48,16 @@ namespace Butterfly.Sandbox
                 db.Add(articlePage1Item);
 
 
-                var page1 = TemplateMapper.MapAs<IPageItem>(db.GetItem(page1Item.ID)).ValueOrFailure();
+                var page1 = templateMapping.ResolveAs<IPageItem>(db.GetItem(page1Item.ID)).ValueOrFailure();
                 Console.WriteLine(page1.Title.RawValue);
 
-                var article1 = TemplateMapper.MapAs<IArticlePageItem>(db.GetItem(articlePage1Item.ID)).ValueOrFailure();
+                var article1 = templateMapping.ResolveAs<IArticlePageItem>(db.GetItem(articlePage1Item.ID)).ValueOrFailure();
 
                 Console.WriteLine(article1.Title.RawValue);
                 Console.WriteLine(article1.Content.RawValue);
-            }
 
-            Console.ReadKey();
+                Console.ReadKey();
+            }
         }
     }
 }

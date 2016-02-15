@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Butterfly.Mapping
 {
-    public interface ITemplateMap
+    public interface ITemplateMapping
     {
-        IItem Map(Item item);
+        IItem Resolve(Item item);
     }
 }

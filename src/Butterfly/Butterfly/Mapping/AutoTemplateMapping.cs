@@ -10,20 +10,20 @@ using System.Linq.Expressions;
 
 namespace Butterfly.Mapping
 {
-    public class AutoTemplateMap : TemplateMap
+    public class AutoTemplateMapping : TemplateMapping
     {
-        public AutoTemplateMap(params Assembly[] assembliesToScan)
+        public AutoTemplateMapping(params Assembly[] assembliesToScan)
         {
             if (assembliesToScan == null) throw new ArgumentNullException(nameof(assembliesToScan));
 
             Mappings = assembliesToScan
                 .Where(a => a != null)
                 .Select(ScanAssemblyForMappings)
-                .Aggregate(Enumerable.Empty<KeyValuePair<Guid, Func<Item, IItem>>>(), (ms, m) => ms.Union(m))
+                .Aggregate(Enumerable.Empty<KeyValuePair<Guid, Func<Item, ITemplateMapping, IItem>>>(), (ms, m) => ms.Union(m))
                 .ToDictionary(m => m.Key, m => m.Value);
         }
 
-        private IEnumerable<KeyValuePair<Guid, Func<Item, IItem>>> ScanAssemblyForMappings(Assembly assembly)
+        private IEnumerable<KeyValuePair<Guid, Func<Item, ITemplateMapping, IItem>>> ScanAssemblyForMappings(Assembly assembly)
         {
             var typesAndAttrs =
                 from type in assembly.GetTypes()
@@ -36,7 +36,7 @@ namespace Butterfly.Mapping
                 var templateId = typeAndAttr.MappingAttribute.TemplateId;
                 var itemFactory = CreateItemFactory(typeAndAttr.Type);
 
-                yield return new KeyValuePair<Guid, Func<Item, IItem>>(templateId, itemFactory);
+                yield return new KeyValuePair<Guid, Func<Item, ITemplateMapping, IItem>>(templateId, itemFactory);
             }
         }
     }

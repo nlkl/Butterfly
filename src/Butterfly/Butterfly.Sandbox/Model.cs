@@ -19,7 +19,7 @@ namespace Butterfly.Sandbox
     {
         public IField Title { get; private set; }
 
-        public PageItem(Item item) : base(item)
+        public PageItem(Item item, ITemplateMapping mapping) : base(item, mapping)
         {
             Title = new TypedField(item, "Title");
         }
@@ -36,7 +36,7 @@ namespace Butterfly.Sandbox
         public IField Title { get; private set; }
         public IField Content { get; private set; }
 
-        public ArticlePageItem(Item item) : base(item)
+        public ArticlePageItem(Item item, ITemplateMapping mapping) : base(item, mapping)
         {
             Title = new TypedField(item, "Title");
             Content = new TypedField(item, "Content");

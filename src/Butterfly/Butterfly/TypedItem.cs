@@ -15,9 +15,11 @@ namespace Butterfly
     public class TypedItem : IItem
     {
         private readonly Item innerItem;
+        private readonly ITemplateMapping mapping;
+
+        protected virtual ITemplateMapping Mapping => mapping;
 
         public Item InnerItem => innerItem;
-
         public ID Id => InnerItem.ID;
         public ID TemplateId => InnerItem.TemplateID;
 
@@ -46,10 +48,12 @@ namespace Butterfly
         public int Version => InnerItem.Version.Number;
         public bool IsLatestVersion => InnerItem.Versions.IsLatestVersion();
 
-        public TypedItem(Item item)
+        public TypedItem(Item item, ITemplateMapping mapping)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
+            if (mapping == null) throw new ArgumentNullException(nameof(mapping));
             this.innerItem = item;
+            this.mapping = mapping;
         }
 
         public virtual string GenerateUrl()
@@ -80,7 +84,7 @@ namespace Butterfly
         public IEnumerable<IItem> Descendants() => InnerItem.Axes.GetDescendants().Select(MapItem).ToArray();
         public IEnumerable<TItem> Descendants<TItem>() where TItem : IItem => Descendants().OfType<TItem>();
 
-        protected virtual IItem MapItem(Item item) => TemplateMapper.Map(item);
-        protected virtual Option<TItem> MapItemAs<TItem>(Item item) where TItem : IItem => TemplateMapper.MapAs<TItem>(item);
+        protected virtual IItem MapItem(Item item) => Mapping.Resolve(item);
+        protected virtual Option<TItem> MapItemAs<TItem>(Item item) where TItem : IItem => Mapping.ResolveAs<TItem>(item);
     }
 }
