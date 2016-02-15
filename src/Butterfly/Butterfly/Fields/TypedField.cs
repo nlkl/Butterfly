@@ -1,4 +1,5 @@
-﻿using Butterfly.Rendering;
+﻿using Butterfly.Editing;
+using Butterfly.Rendering;
 using Optional;
 using Optional.Unsafe;
 using Sitecore.Data;
@@ -43,7 +44,7 @@ namespace Butterfly.Fields
 
             set
             {
-                using (new EditContext(OwnerItem))
+                using (new BorrowingEditContext(OwnerItem))
                 {
                     InnerField.Value = value;
                 }

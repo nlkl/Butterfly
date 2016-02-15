@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Axes.cs" />
+    <Compile Include="Editing\BorrowingEditContext.cs" />
     <Compile Include="Fields\IField.cs" />
     <Compile Include="Fields\TypedField.cs" />
     <Compile Include="IAxes.cs" />

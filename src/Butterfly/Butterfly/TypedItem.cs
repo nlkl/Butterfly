@@ -8,6 +8,10 @@ using Sitecore.Data.Items;
 using Butterfly.Mapping;
 using Sitecore.Links;
 using Sitecore.Data.Managers;
+using Butterfly.Editing;
+using Optional;
+using Sitecore.Resources.Media;
+using Sitecore;
 
 namespace Butterfly
 {
@@ -38,11 +42,32 @@ namespace Butterfly
             }
         }
 
-        public virtual IAxes Axes => axes;
+        public string Name
+        {
+            get { return InnerItem.Name; }
+            set
+            {
+                using (Edit())
+                {
+                    InnerItem.Name = value;
+                }
+            }
+        }
 
-        public string Name => InnerItem.Name;
-        public string DisplayName => InnerItem.DisplayName;
+        public string DisplayName
+        {
+            get { return InnerItem.DisplayName; }
+            set
+            {
+                using (Edit())
+                {
+                    InnerItem[FieldIDs.DisplayName] = value;
+                }
+            }
+        }
+
         public string Path => InnerItem.Paths.FullPath;
+        public virtual IAxes Axes => axes;
 
         public TypedItem(Item item, ITemplateMapping templateMapping)
         {
@@ -54,12 +79,16 @@ namespace Butterfly
             this.axes = new Axes(item, templateMapping);
         }
 
-        public virtual string GenerateUrl() => LinkManager.GetItemUrl(InnerItem);
+        public IDisposable Edit() => new BorrowingEditContext(InnerItem);
 
-        public virtual string GenerateUrl(UrlOptions options)
+        public virtual Option<string> GenerateUrl()
         {
-            if (options == null) throw new ArgumentNullException(nameof(options));
-            return LinkManager.GetItemUrl(InnerItem, options);
+            if (InnerItem.Paths.IsMediaItem)
+            {
+                return MediaManager.GetMediaUrl(InnerItem).NoneWhen(string.IsNullOrWhiteSpace);
+            }
+
+            return LinkManager.GetItemUrl(InnerItem).NoneWhen(string.IsNullOrWhiteSpace);
         }
     }
 }

@@ -19,13 +19,13 @@ namespace Butterfly
         ID TemplateId { get; }
         IEnumerable<ID> TemplateIds { get; }
 
-        string Name { get; }
-        string DisplayName { get; }
-        string Path { get; }
+        string Name { get; set; }
+        string DisplayName { get; set; }
 
-        string GenerateUrl();
-        string GenerateUrl(UrlOptions options);
+        string Path { get; }
+        Option<string> GenerateUrl();
 
         IAxes Axes { get; }
+        IDisposable Edit();
     }
 }
