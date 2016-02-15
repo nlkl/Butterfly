@@ -53,6 +53,7 @@ namespace Butterfly.Sandbox
                 Console.WriteLine(page1.Title.RawValue);
 
                 var article1 = TemplateMapper.MapAs<IArticlePageItem>(db.GetItem(articlePage1Item.ID)).ValueOrFailure();
+
                 Console.WriteLine(article1.Title.RawValue);
                 Console.WriteLine(article1.Content.RawValue);
             }
